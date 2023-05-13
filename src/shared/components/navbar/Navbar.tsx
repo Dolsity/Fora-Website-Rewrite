@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './Navbar.module.scss';
 
 export default function Navbar() {
@@ -6,22 +7,18 @@ export default function Navbar() {
       <div className={styles.navbar_container}>
         
         <a href="#" className={styles.navbar_logo}>
-          <img src="/static/img/logo.png" alt="Logo" />
+          <img src="./" alt="Logo" />
           Fora
         </a>
 
-        <div className={styles.navbar_toggle} id={styles.mobile_menu}>
-          <span className={styles.bar}></span>
-          <span className={styles.bar}></span>
-          <span className={styles.bar}></span>
-        </div>
-
         <ul className={styles.navbar_menu}>
           <li className={styles.navbar_item}>
-            <a href="#" className={styles.navbar_links}>Home</a>    
+            <a href="#" className={styles.navbar_links}>Home</a> 
+            <a href="#" className={styles.navbar_links}>Dashboard</a>  
+            <a href="#" className={styles.navbar_links}>Commands</a>
+            <a href="#" className={styles.navbar_links}>Login</a>
           </li>
         </ul>
-
 
       </div>
     </nav>
