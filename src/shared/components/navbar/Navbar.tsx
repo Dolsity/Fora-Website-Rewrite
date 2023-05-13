@@ -1,25 +1,24 @@
-import React from 'react';
-import './Navbar.module.scss';
+import styles from './Navbar.module.scss';
 
-function Navbar() {
+export default function Navbar() {
   return (
-    <nav className="navbar">
-      <div className="navbar_container">
+    <nav className={styles.navbar}>
+      <div className={styles.navbar_container}>
         
-        <a href="#" className="navbar_logo">
+        <a href="#" className={styles.navbar_logo}>
           <img src="/static/img/logo.png" alt="Logo" />
           Fora
         </a>
 
-        <div className="navbar_toggle" id="mobile_menu">
-          <span className="bar"></span>
-          <span className="bar"></span>
-          <span className="bar"></span>
+        <div className={styles.navbar_toggle} id={styles.mobile_menu}>
+          <span className={styles.bar}></span>
+          <span className={styles.bar}></span>
+          <span className={styles.bar}></span>
         </div>
 
-        <ul className='navbar_menu'>
-          <li className="navbar_item">
-            <a href="#" className="navbar_links">Home</a>    
+        <ul className={styles.navbar_menu}>
+          <li className={styles.navbar_item}>
+            <a href="#" className={styles.navbar_links}>Home</a>    
           </li>
         </ul>
 
@@ -28,5 +27,3 @@ function Navbar() {
     </nav>
   );
 }
-
-export default Navbar;
