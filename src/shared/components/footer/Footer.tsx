@@ -1,9 +1,7 @@
-import React from 'react';
 import styles from './Footer.module.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-
-function Footer() {
+export default function Footer() {
   return (
     <footer className={styles.footer}>
         <div className={styles.footer_links}>
@@ -43,5 +41,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default Footer;
