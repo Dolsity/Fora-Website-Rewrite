@@ -27,26 +27,10 @@ export default function App() {
       <div className="App">
         <header className="App-header">
           <ReactLogo className="App-logo" />
-          <p>
-            Edit <code>src/App.tsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <br />
           {data && (
             <div>
               <p>{data.message}</p>
-              <ul>
-                {data.data.map((item: number) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
+              {data.username && <p>{data.username}</p>}
             </div>
           )}
         </header>
