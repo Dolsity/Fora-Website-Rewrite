@@ -1,13 +1,66 @@
-from flask import Flask, jsonify
+from flask_discord import DiscordOAuth2Session
+from flask import Flask, render_template, redirect, url_for, jsonify, send_from_directory, request
+from dotenv import load_dotenv
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/api/data')
+load_dotenv()
+# os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true" # !! Only in development environment.
+app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
+app.config["DISCORD_CLIENT_ID"] = os.getenv('BETA_DISCORD_CLIENT_ID')
+app.config["DISCORD_CLIENT_SECRET"] = os.getenv('BETA_DISCORD_CLIENT_SECRET')
+app.config["DISCORD_REDIRECT_URI"] = "http://127.0.0.1:5000/callback"
+
+discord = DiscordOAuth2Session(app)
+
+@app.route("/logout/")
+def logout():
+    discord.revoke()
+    return f"You have been logged out! <a href='/home/'>Take me home</a>"
+
+
+@app.route("/login/")
+def login():
+    redirect_uri = url_for("home", _external=True)
+    return discord.create_session(scope=["identify"], prompt=True, redirect=redirect_uri)
+
+
+@app.route("/callback/")
+def callback():
+    try:
+        discord.callback()
+
+    except Exception:
+        return redirect(url_for("home"))
+
+    return redirect(url_for("home"))
+
+
+@app.route("/")
+@app.route("/home/")
+def home():
+    if not discord.authorized:
+        return "Hello, stranger! <a href='/login/'>Login with Discord</a>"
+
+    user = discord.fetch_user()
+    return f"Hello, {user.name}! <a href='/api/data/'>Check out my data</a>"
+
+
+@app.route('/api/data/')
 def api_data():
-    data = {'message': 'Hello from Flask API!', 'data': [1, 2, 3, 4, 5]}
+    if not discord.authorized:
+        return redirect(url_for("login"))
+
+    user = discord.fetch_user()
+    data = {
+        'message': 'Hello from Flask API!',
+        'username': user.name,
+    }
     return jsonify(data)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
