@@ -10,8 +10,8 @@ CORS(app)
 load_dotenv()
 # os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true" # !! Only in development environment.
 app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
-app.config["DISCORD_CLIENT_ID"] = os.getenv('BETA_DISCORD_CLIENT_ID')
-app.config["DISCORD_CLIENT_SECRET"] = os.getenv('BETA_DISCORD_CLIENT_SECRET')
+app.config["DISCORD_CLIENT_ID"] = os.getenv('DISCORD_CLIENT_ID')
+app.config["DISCORD_CLIENT_SECRET"] = os.getenv('DISCORD_CLIENT_SECRET')
 app.config["DISCORD_REDIRECT_URI"] = "http://127.0.0.1:5000/callback"
 
 discord = DiscordOAuth2Session(app)
@@ -46,18 +46,14 @@ def home():
         return "Hello, stranger! <a href='/login/'>Login with Discord</a>"
 
     user = discord.fetch_user()
-    return f"Hello, {user.name}! <a href='/api/data/'>Check out my data</a>"
+    return f"Hello, {user.name}! <a href='/logout/'>Try logging out</a>"
 
 
 @app.route('/api/data/')
 def api_data():
-    if not discord.authorized:
-        return redirect(url_for("login"))
 
-    user = discord.fetch_user()
     data = {
         'message': 'Hello from Flask API!',
-        'username': user.name,
     }
     return jsonify(data)
 
