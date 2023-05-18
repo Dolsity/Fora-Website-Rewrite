@@ -1,5 +1,6 @@
 import styles from './Footer.module.scss';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import Logo from '../../../assets/logo.png';
 
 export default function Footer() {
   return (
@@ -7,22 +8,27 @@ export default function Footer() {
         <div className={styles.footer_links}>
             <div className={styles.footer_link_wrapper}>
                 <div className={styles.footer_link_items}>
-                    <h2>Support</h2>
-                    <a target="_blank" rel="nofollow noopener" href="#">Support Server</a>
+                    <h2>Fora</h2>
+                    <a target="_blank" rel="nofollow noopener" href="#">Invite Fora</a>
+                    <a target="_blank" rel="nofollow noopener" href="#">Invite Premium</a>
+                    <a target="_blank" rel="nofollow noopener" href="#">Terms of Service</a>
+                    <a target="_blank" rel="nofollow noopener" href="#">Privacy Policy</a>
                 </div>
             </div>
             <div className={styles.footer_link_wrapper}>
                 <div className={styles.footer_link_items}>
-                    <h2>Other Links</h2>
-                    <a rel="nofollow noopener" href="#">Commands</a>
-                    <a rel="nofollow noopener" href="#">Rules</a>
+                    <h2>Resources</h2>
+                    <a rel="nofollow noopener" href="#">Join our Discord</a>
+                    <a rel="nofollow noopener" href="#">System Status</a>
+                    <a rel="nofollow noopener" href="#">Meet the Team</a>
+                    <a rel="nofollow noopener" href="#">Vote on Top.gg</a>
                 </div>
             </div>
         </div>
         <section className={styles.social_media}>
             <div className={styles.social_media_wrap}>
                 <div className={styles.footer_logo}>
-                    <a href="/">FORA</a>
+                    <a><img src={Logo} alt="Logo" />FORA</a>
                 </div>
                 <p>Fora © 2023</p>
                 <div className={styles.social_icons}>

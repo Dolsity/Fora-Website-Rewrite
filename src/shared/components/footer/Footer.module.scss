@@ -14,12 +14,6 @@
     max-width: 1000px;
     display: flex;
     justify-content: center;
-    
-    h2 {
-        margin-bottom: 16px;
-        color: #fff;
-        align-self: center;
-    }
 }
 
 .footer_link_wrapper {
@@ -36,9 +30,11 @@
     box-sizing: border-box;
 
     h2 {
+        font-size: 22px;
         margin-bottom: 16px;
         color: #fff;
         align-self: center;
+        text-transform: uppercase;
     }
 
     a {
@@ -56,6 +52,7 @@
 
 }
 
+
 .social_media {
     max-width: 1000px;
     width: 100%;
@@ -70,12 +67,12 @@
     margin: 40px auto 0 auto;
 
     p {
-        color: #fff;
+        color: #ffffff;
     }
 }
 
 .footer_logo a {
-    color: #FFFFFF;
+    color: #ffffff;
     display: flex;
     align-items: center;
     cursor: pointer;
