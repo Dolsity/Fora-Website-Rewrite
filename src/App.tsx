@@ -30,6 +30,7 @@ export default function App() {
           {data && (
             <div>
               <p>{data.message}</p>
+              <p>{data.username}</p>
             </div>
           )}
         </header>
