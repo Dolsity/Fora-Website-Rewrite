@@ -1,7 +1,8 @@
 from flask_discord import DiscordOAuth2Session
-from flask import Flask, redirect, url_for, jsonify
+from flask import Flask, redirect, url_for, jsonify, request
 from dotenv import load_dotenv
 from flask_cors import CORS
+from pymongo import MongoClient
 import os
 
 app = Flask(__name__)
@@ -9,6 +10,7 @@ app = Flask(__name__)
 CORS(app)
 
 load_dotenv()
+fora_database = MongoClient(os.getenv('MONGO_URI'))['Fora']
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true" # !! Only in development environment
 app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 app.config["DISCORD_CLIENT_ID"] = os.getenv('DISCORD_CLIENT_ID')
@@ -50,17 +52,38 @@ def home():
     return f"Hello, {user.name}! <a href='/logout/'>Try logging out</a>"
 
 
-@app.route('/api/data/')
+@app.route('/api/data/', methods=['GET'])
 def api_data():
     if not discord.authorized:
         return jsonify({"error": "Unauthorized"}), 401
     
     user = discord.fetch_user()
+    access_token = discord.get_authorization_token()['access_token']
 
-    data = {
-        'message': 'Hello from Flask API!',
-        'username': user.name,
-    }
+    user_data = fora_database['profile'].find_one({"_id": user.id})
+    if user_data is None:
+        data = {
+            'username': discord.fetch_user().name,
+            'user_avatar': discord.fetch_user().avatar_url,
+            'user_wallet': 0,
+            'user_bank': 0,
+            'user_total_balance': 0,
+            'user_job': 'Unemployed',
+            'user_hours': 0,
+            'access_token': access_token,
+        }
+    else:
+        data = {
+            'username': discord.fetch_user().name,
+            'user_avatar': discord.fetch_user().avatar_url,
+            'user_wallet': user_data['wallet'],
+            'user_bank': user_data['bank'],
+            'user_total_balance': user_data['wallet'] + user_data['bank'],
+            'user_job': user_data['job'],
+            'user_hours': user_data['hours'],
+            'access_token': access_token,
+        }
+    print("Response data:", data)  # Add this line to print the response data
     return jsonify(data)
 
 
