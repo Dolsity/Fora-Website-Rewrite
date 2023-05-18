@@ -1,5 +1,5 @@
 from flask_discord import DiscordOAuth2Session
-from flask import Flask, render_template, redirect, url_for, jsonify, send_from_directory, request
+from flask import Flask, redirect, url_for, jsonify
 from dotenv import load_dotenv
 from flask_cors import CORS
 import os
@@ -8,7 +8,7 @@ app = Flask(__name__)
 CORS(app)
 
 load_dotenv()
-# os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true" # !! Only in development environment.
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true" # !! Only in development environment.
 app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 app.config["DISCORD_CLIENT_ID"] = os.getenv('DISCORD_CLIENT_ID')
 app.config["DISCORD_CLIENT_SECRET"] = os.getenv('DISCORD_CLIENT_SECRET')
