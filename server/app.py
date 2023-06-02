@@ -1,5 +1,5 @@
 from flask_discord import DiscordOAuth2Session
-from flask import Flask, redirect, url_for, jsonify, request
+from flask import Flask, redirect, url_for, jsonify
 from dotenv import load_dotenv
 from flask_cors import CORS
 from pymongo import MongoClient
@@ -11,7 +11,7 @@ CORS(app)
 
 load_dotenv()
 fora_database = MongoClient(os.getenv('MONGO_URI'))['Fora']
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true" # !! Only in development environment
+os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "true"
 app.config["SECRET_KEY"] = os.getenv('SECRET_KEY')
 app.config["DISCORD_CLIENT_ID"] = os.getenv('DISCORD_CLIENT_ID')
 app.config["DISCORD_CLIENT_SECRET"] = os.getenv('DISCORD_CLIENT_SECRET')
@@ -83,7 +83,7 @@ def api_data():
             'user_hours': user_data['hours'],
             'access_token': access_token,
         }
-    print("Response data:", data)  # Add this line to print the response data
+    print("Response data:", data)
     return jsonify(data)
 
 
