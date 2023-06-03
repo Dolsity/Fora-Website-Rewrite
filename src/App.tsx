@@ -29,7 +29,13 @@ export default function App() {
           <ReactLogo className="App-logo" />
           {data && (
             <div>
-              <p>{data.message}</p>
+              <p>{data.username}</p>
+              <p>{data.user_avatar}</p>
+              <p>{data.user_wallet}</p>
+              <p>{data.user_bank}</p>
+              <p>{data.user_total_balance}</p>
+              <p>{data.user_job}</p>
+              <p>{data.user_user_hours}</p>
             </div>
           )}
         </header>
